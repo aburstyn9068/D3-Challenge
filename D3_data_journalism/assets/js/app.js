@@ -64,21 +64,22 @@ d3.csv("../D3_data_journalism/assets/data/data.csv").then(function(censusData) {
         .attr("cx", d => xLinearScale(d.income))
         .attr("cy", d => yLinearScale(d.obesity))
         .attr("r", "15")
-        .attr("fill", "yellow");
+        .attr("class", "stateCircle");
     
     // Add text labels in circles
     var labelsGroup = chartGroup.selectAll("text")
         .data(censusData)
         .enter()
         .append("text")
-        .attr("x", d => xLinearScale(d.income)-10)
-        .attr("y", d => yLinearScale(d.obesity)+6)
+        .attr("x", d => xLinearScale(d.income))
+        .attr("y", d => yLinearScale(d.obesity)+5)
+        .attr("class", "stateText")
         .text(d => d.abbr);
 
     // Step 6: Initialize tool tip
     // ==============================
     var toolTip = d3.tip()
-        .attr("class", "tooltip")
+        .attr("class", "d3-tip")
         .offset([80, -60])
         .html(function(d) {
           return (`${d.state}<br>Income: ${d.income}<br>Obesity: ${d.obesity}`);
@@ -105,12 +106,12 @@ d3.csv("../D3_data_journalism/assets/data/data.csv").then(function(censusData) {
       .attr("y", 0 - margin.left + 40)
       .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
-      .attr("class", "axisText")
+      .attr("class", "aText")
       .text("Obesity");
 
     chartGroup.append("text")
       .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
-      .attr("class", "axisText")
+      .attr("class", "aText")
       .text("Income");
   }).catch(function(error) {
     console.log(error);
